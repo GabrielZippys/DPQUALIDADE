@@ -1,2 +1,1 @@
-# ML-BOT-Bravo
-Bot para analise de entregas 
+O projeto consiste na criação de um site simples e elegante para centralizar o acesso a diversos formulários do Jotform. A página principal apresentará "cards" interativos, cada um representando um formulário específico (RG-04, RG-06, RG-07, etc.), com uma breve descrição e um link de acesso direto. O design terá como foco as cores vermelho, branco e preto, com o vermelho em destaque. O site contará com um cabeçalho (header) e um rodapé (footer) visualmente atraentes e interativos. Além disso, será implementada uma funcionalidade de login utilizando a autenticação do Google, e o projeto final será hospedado na Vercel através de um repositório no GitHub, garantindo um processo de deploy contínuo e eficiente.
