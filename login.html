@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Central de Formulários</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Central de Acesso</h1>
+        <p>Por favor, faça login com sua conta Google para continuar.</p>
+        <div id="google-btn-container"></div>
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            localStorage.setItem('googleToken', response.credential);
+            window.location.href = 'index.html';
+        }
+
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: "182249430124-s2ca8ciohnlr06sktjsq69oojeu017ir.apps.googleusercontent.com", // SEU CLIENT ID
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("google-btn-container"),
+            { theme: "filled_black", size: "large", type: 'standard', text: 'signin_with', shape: 'pill' }
+          );
+          google.accounts.id.prompt();
+        };
+    </script>
+</body>
+</html>

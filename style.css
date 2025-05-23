@@ -1,3 +1,49 @@
+/* --- Estilos para a Tela de Login --- */
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh; /* Ocupa a altura inteira da tela */
+    background-color: var(--secondary-color);
+}
+
+.login-container h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.login-container p {
+    color: #ccc;
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+}
+
+#google-btn-container {
+    /* O botão do google será inserido aqui */
+}
+
+/* Estilo para o botão de SAIR na página principal */
+#logout-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#logout-btn:hover {
+    background-color: #c40812;
+}
+
+
 /* Importando uma fonte para um visual mais moderno */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
