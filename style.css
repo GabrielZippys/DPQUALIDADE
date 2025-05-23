@@ -1,0 +1,127 @@
+/* Importando uma fonte para um visual mais moderno */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #E50914; /* Vermelho forte */
+    --secondary-color: #000000; /* Preto */
+    --text-color: #FFFFFF; /* Branco */
+    --card-bg: #1f1f1f;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Estilos do Cabeçalho */
+.main-header {
+    background-color: var(--secondary-color);
+    padding: 20px 0;
+    border-bottom: 3px solid var(--primary-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header h1 {
+    color: var(--primary-color);
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* O Google renderiza seu próprio botão, então vamos esconder o nosso e deixar o espaço */
+#login-google-btn {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+/* Estilos da Seção de Cards */
+.cards-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.cards-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 30px;
+    border-left: 5px solid var(--primary-color);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3);
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: var(--primary-color);
+}
+
+.card p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+.btn-access {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+}
+
+.btn-access:hover {
+    background-color: #c40812;
+}
+
+/* Estilos do Rodapé */
+.main-footer {
+    background-color: #141414;
+    color: #8c8c8c;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    border-top: 3px solid var(--primary-color);
+}
