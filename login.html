@@ -45,7 +45,9 @@
                 localStorage.setItem('googleToken', response.credential);
                 localStorage.setItem('userInfo', JSON.stringify(userData));
                 window.location.href = 'index.html';
-            } 
+            } else {
+                alert("Não foi possível decodificar os dados do usuário. Tente novamente.");
+            }
         }
         window.onload = function () {
           google.accounts.id.initialize({
