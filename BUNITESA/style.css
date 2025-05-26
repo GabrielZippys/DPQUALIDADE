@@ -1,0 +1,186 @@
+/* --- FONTES E CONFIGURAÇÕES GLOBAIS --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    /* Nova paleta de cores baseada no logo D&D */
+    --primary-red: #a62c2b; /* Vermelho escuro do logo */
+    --bg-color: #f4f4f5;      /* Fundo cinza bem claro */
+    --surface-color: #ffffff; /* Branco para cards e header */
+    --text-dark: #212529;   /* Cinza escuro para texto */
+    --text-light: #ffffff;  /* Texto claro (branco) */
+    --border-color: #e5e7eb; /* Cor suave para bordas */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- CORREÇÃO DO RODAPÉ E LAYOUT PRINCIPAL --- */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o body ocupe no mínimo a altura total da tela */
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+}
+
+main {
+    flex-grow: 1; /* Faz o conteúdo principal crescer e empurrar o rodapé para baixo */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- CABEÇALHO --- */
+.main-header {
+    background-color: var(--surface-color);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    height: 50px;
+}
+
+/* --- PERFIL DO USUÁRIO NO HEADER --- */
+#user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#user-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-red);
+    object-fit: cover;
+}
+
+#user-name {
+    font-weight: 600;
+}
+
+#logout-btn {
+    background-color: var(--primary-red);
+    color: var(--text-light);
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+#logout-btn:hover {
+    background-color: #c40812; /* Vermelho um pouco mais vivo no hover */
+}
+
+/* --- CONTEÚDO PRINCIPAL (CARDS) --- */
+.cards-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.cards-section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: left;
+    border-top: 4px solid var(--primary-red);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* --- NOVAS LINHAS PARA ALINHAR O BOTÃO --- */
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-access {
+    display: block;
+    margin-top: auto; /* ESTA É A MUDANÇA MÁGICA */
+    padding: 12px 25px;
+    background-color: var(--primary-red);
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: var(--text-dark);
+    font-weight: 600;
+    text-align: center; /* <-- Adicione esta linha */
+    margin-bottom: 15px;  /* Bônus: Adiciona um espaço abaixo do título */
+}
+
+.card p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 25px; /* <-- Adicione esta linha para criar o espaço */
+}
+
+.btn-access:hover {
+    background-color: #c40812;
+}
+
+/* --- RODAPÉ --- */
+.main-footer {
+    background-color: #212529; /* Rodapé escuro para contraste */
+    color: #adb5bd;
+    text-align: center;
+    padding: 25px 0;
+    margin-top: auto; /* Garante que ele fique no fim, junto com o flexbox do body */
+}
+
+
+/* --- ESTILOS PARA IMAGEM DE CAPA DO CARD --- */
+
+.card-image {
+    width: 100%;
+    height: 160px; /* Altura fixa para todas as imagens */
+    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+    border-radius: 6px;
+    margin-bottom: 25px; /* Espaço entre a imagem e o título */
+    border: 1px solid var(--border-color);
+}

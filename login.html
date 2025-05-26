@@ -3,24 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Central de Formulários</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login - D&D Frigorífico</title>
+    <link rel="stylesheet" href="/BUNITESA/login.css">
 </head>
-<body>
+<body class="login-page">
 
     <div class="login-container">
-        <h1>Central de Acesso</h1>
-        <p>Por favor, faça login com sua conta Google para continuar.</p>
-        <div id="google-btn-container"></div>
+        <img src="logo.png" alt="Logo D&D Frigorífico" class="login-logo">
+        
+        <h2 class="login-welcome">Bem-vindo(a) à Plataforma D&D</h2>
+
+        <p class="login-summary">
+            Esta é a central de acesso rápido aos formulários e registros internos da D&D Frigorífico. Agilize seus processos diários com acesso facilitado.
+        </p>
+
+        <p class="login-prompt">
+            Para continuar, faça login com sua conta Google.
+        </p>
+        
+
+        <div id="google-btn-container" class="pulse-animation"></div>
     </div>
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-        function handleCredentialResponse(response) {
-            localStorage.setItem('googleToken', response.credential);
-            window.location.href = 'index.html';
+        function jwt_decode(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                return null;
+            }
         }
-
+        function handleCredentialResponse(response) {
+            const userData = jwt_decode(response.credential);
+            if (userData) {
+                localStorage.setItem('googleToken', response.credential);
+                localStorage.setItem('userInfo', JSON.stringify(userData));
+                window.location.href = 'index.html';
+            } else {
+                alert("Não foi possível decodificar os dados do usuário. Tente novamente.");
+            }
+        }
         window.onload = function () {
           google.accounts.id.initialize({
             client_id: "182249430124-s2ca8ciohnlr06sktjsq69oojeu017ir.apps.googleusercontent.com", // SEU CLIENT ID

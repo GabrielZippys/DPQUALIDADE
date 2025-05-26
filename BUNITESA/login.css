@@ -1,0 +1,143 @@
+/*
+==============================================
+|         ESTILOS DA PÁGINA DE LOGIN         |
+|             (VERSÃO COM MAIOR FOCO)        |
+==============================================
+*/
+
+/* --- NOVA ANIMAÇÃO DE FLUTUAÇÃO --- */
+@keyframes float {
+    0% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transform: translateY(0px);
+    }
+    50% {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transform: translateY(-15px);
+    }
+    100% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transform: translateY(0px);
+    }
+}
+
+/* --- Animação de entrada suave --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Layout Principal --- */
+body.login-page {
+    background: radial-gradient(ellipse at center, #ffffff 0%, #f4f4f5 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.login-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* --- Logo Animado --- */
+.login-logo {
+    max-width: 300px;
+    margin-bottom: 35px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease; /* Transição apenas para o hover */
+    opacity: 0;
+    
+    /* ANIMAÇÕES COMBINADAS: */
+    /* 1. Surge na tela (fadeInUp) | 2. Começa a flutuar (float) */
+    animation: 
+        fadeInUp 0.8s ease-out 0.2s forwards,
+        float 5s ease-in-out 1.2s infinite;
+}
+
+.login-logo:hover {
+    /* Pausa a animação de flutuar e aplica o zoom quando o mouse está sobre o logo */
+    animation-play-state: paused;
+    transform: scale(1.05);
+}
+/* --- Novos Estilos para os Textos (Maiores) --- */
+.login-welcome {
+    font-size: 2.2rem; /* Aumentado de 1.8rem */
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 20px; /* Aumentado de 15px */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+}
+
+.login-summary {
+    color: #555;
+    font-size: 1.2rem; /* Aumentado de 1.1rem */
+    max-width: 550px; /* Aumentado de 450px para comportar o texto maior */
+    line-height: 1.6;
+    margin-bottom: 35px; /* Aumentado de 30px */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+}
+
+.login-prompt {
+    color: #777;
+    font-size: 1.1rem; /* Aumentado de 1rem */
+    margin-bottom: 40px; /* Aumentado de 35px */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.8s forwards;
+}
+
+/* --- NOVA ANIMAÇÃO DE PULSO --- */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(166, 44, 43, 0.5); /* --primary-red com 50% de opacidade */
+    }
+    70% {
+        box-shadow: 0 0 0 25px rgba(166, 44, 43, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(166, 44, 43, 0);
+    }
+}
+
+
+/* --- BOTÃO DO GOOGLE COM MÁXIMO DESTAQUE --- */
+#google-btn-container {
+    background-color: var(--surface-color); /* Fundo branco para criar um painel */
+    padding: 20px 25px; /* Espaçamento interno para aumentar a área */
+    border-radius: 12px; /* Bordas arredondadas */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Sombra para destacar */
+    display: inline-block; /* Para que o padding e outras props funcionem bem */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    opacity: 0;
+    /* Animação de entrada, continua sendo o último a aparecer */
+    animation: fadeInUp 0.8s ease-out 1.0s forwards; 
+}
+
+#google-btn-container:hover {
+    transform: translateY(-5px); /* Efeito de elevação no hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Aplica a animação de pulso no painel do botão */
+#google-btn-container.pulse-animation {
+    animation: fadeInUp 0.8s ease-out 1.0s forwards, pulse 2.5s infinite 1.8s;
+}
+
+/* Remove o scale do botão interno, já que o container agora é o foco */
+#google-btn-container > div {
+    transition: transform 0.3s ease;
+}
