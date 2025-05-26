@@ -183,4 +183,5 @@ main {
     border-radius: 6px;
     margin-bottom: 25px; /* Espaço entre a imagem e o título */
     border: 1px solid var(--border-color);
+    border-radius: 50px;
 }
