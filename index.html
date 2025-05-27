@@ -79,8 +79,65 @@
 
             // Atribui a função de logout ao botão
             document.getElementById('logout-btn').addEventListener('click', logout);
+
+// --- CÓDIGO PARA CONTROLAR O MODAL ---
+
+        // 1. Pegar todos os elementos que vamos usar
+        const accessButtons = document.querySelectorAll('.btn-access');
+        const modal = document.getElementById('form-modal');
+        const modalIframe = document.getElementById('modal-iframe');
+        const closeModalButton = document.querySelector('.close-modal-btn');
+
+        // Função para abrir o modal
+        const openModal = (url) => {
+            modalIframe.setAttribute('src', url); // Define a URL do formulário
+            modal.classList.add('active'); // Mostra o modal
+            document.body.style.overflow = 'hidden'; // Impede o scroll da página de fundo
+        };
+
+        // Função para fechar o modal
+        const closeModal = () => {
+            modal.classList.remove('active'); // Esconde o modal
+            modalIframe.setAttribute('src', ''); // Limpa a URL para parar o carregamento
+            document.body.style.overflow = 'auto'; // Libera o scroll
+        };
+
+        // 2. Adicionar o "ouvinte" de clique para cada botão "Acessar"
+        accessButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault(); // Impede o link de abrir uma nova aba
+                const formUrl = button.href; // Pega a URL do botão clicado
+                openModal(formUrl);
+            });
+        });
+
+        // 3. Adicionar os "ouvintes" para fechar o modal
+        closeModalButton.addEventListener('click', closeModal);
+
+        // Fecha o modal se o usuário clicar no fundo preto
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Fecha o modal se o usuário pressionar a tecla "Escape"
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
         });
     </script>
+
+<div id="form-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-modal-btn" title="Fechar">&times;</button>
+        <div class="modal-loader"></div>
+        <iframe id="modal-iframe" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
 
 </body>
 </html>
