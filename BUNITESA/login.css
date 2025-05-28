@@ -1,71 +1,83 @@
 /*
 ==============================================
-|     ESTILOS DA PÁGINA DE LOGIN - TEMA RETRÔ    |
+|    ESTILOS DA PÁGINA DE LOGIN - TEMA NEON   |
 ==============================================
 */
 
-/* --- Animação de Glitch e Scanlines --- */
-@keyframes scanline {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 100%; }
+/* --- Animação de brilho pulsante --- */
+@keyframes pulse-glow {
+    0% {
+        text-shadow: 0 0 5px #f0f8ff, 0 0 10px #f0f8ff, 0 0 15px var(--neon-blue);
+    }
+    50% {
+        text-shadow: 0 0 10px #f0f8ff, 0 0 20px #f0f8ff, 0 0 30px var(--neon-blue);
+    }
+    100% {
+        text-shadow: 0 0 5px #f0f8ff, 0 0 10px #f0f8ff, 0 0 15px var(--neon-blue);
+    }
 }
 
 /* --- LAYOUT PRINCIPAL --- */
 body.login-page {
-    /* Fundo de terminal com scanlines */
-    background-color: #0c0c0c;
-    background-image: linear-gradient(rgba(20, 255, 20, 0.15) 2px, transparent 2px),
-                      linear-gradient(90deg, rgba(20, 255, 20, 0.15) 2px, transparent 2px);
-    background-size: 50px 50px;
-    animation: scanline 20s linear infinite;
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(circle at 100% 0%, rgba(0, 191, 255, 0.2), transparent 30%),
+        radial-gradient(circle at 0% 100%, rgba(229, 9, 20, 0.2), transparent 30%);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     min-height: 100vh;
     overflow: hidden;
-    color: #0f0;
 }
 
 .login-container {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 30px 40px;
-    border: 4px solid #0f0;
-    box-shadow: 0 0 20px rgba(20, 255, 20, 0.3);
+    padding: 40px;
+    background: rgba(26, 26, 46, 0.5);
+    border: 1px solid var(--neon-blue);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .login-logo {
     max-width: 280px;
-    margin-bottom: 25px;
-    image-rendering: pixelated;
+    margin-bottom: 30px;
+    transition: filter 0.4s ease-in-out;
+}
+.login-logo:hover {
+    filter: drop-shadow(0 0 15px var(--primary-red));
 }
 
 /* --- ESTILOS DE TEXTO --- */
 .login-welcome {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1.5rem;
-    color: #fff;
-    text-shadow: 3px 3px 0px var(--primary-red);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    animation: pulse-glow 4s ease-in-out infinite;
     margin-bottom: 20px;
 }
 
 .login-summary, .login-prompt {
-    font-family: 'VT323', monospace;
-    font-size: 1.5rem;
-    color: #0f0; /* Cor de fósforo verde */
-    text-shadow: 0 0 5px rgba(20, 255, 20, 0.7);
-    max-width: 600px;
-    line-height: 1.5;
-    margin-bottom: 25px;
+    font-size: 1.1rem;
+    color: #ccc;
+    max-width: 500px;
+    line-height: 1.6;
+    margin-bottom: 30px;
 }
 
 .login-prompt {
-    font-size: 1.3rem;
+    font-size: 1rem;
+    color: #aaa;
 }
 
 /* --- BOTÃO DO GOOGLE --- */
-#google-btn-container > div {
-    border: 3px solid #0f0;
-    box-shadow: 0 0 10px rgba(20, 255, 20, 0.5);
-    background: #000 !important;
+#google-btn-container {
+    background: transparent !important;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+    transition: box-shadow 0.3s ease;
+}
+#google-btn-container:hover {
+    box-shadow: 0 0 25px var(--neon-blue);
 }
