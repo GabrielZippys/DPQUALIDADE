@@ -1,28 +1,41 @@
 /*
 ==============================================
-|    ESTILOS DA PÁGINA DE LOGIN - TEMA NEON   |
+|         ESTILOS DA PÁGINA DE LOGIN         |
+|             (VERSÃO COM MAIOR FOCO)        |
 ==============================================
 */
 
-/* --- Animação de brilho pulsante --- */
-@keyframes pulse-glow {
+/* --- NOVA ANIMAÇÃO DE FLUTUAÇÃO --- */
+@keyframes float {
     0% {
-        text-shadow: 0 0 5px #f0f8ff, 0 0 10px #f0f8ff, 0 0 15px var(--neon-blue);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transform: translateY(0px);
     }
     50% {
-        text-shadow: 0 0 10px #f0f8ff, 0 0 20px #f0f8ff, 0 0 30px var(--neon-blue);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transform: translateY(-15px);
     }
     100% {
-        text-shadow: 0 0 5px #f0f8ff, 0 0 10px #f0f8ff, 0 0 15px var(--neon-blue);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transform: translateY(0px);
     }
 }
 
-/* --- LAYOUT PRINCIPAL --- */
+/* --- Animação de entrada suave --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Layout Principal --- */
 body.login-page {
-    background-color: var(--bg-dark);
-    background-image: 
-        radial-gradient(circle at 100% 0%, rgba(0, 191, 255, 0.2), transparent 30%),
-        radial-gradient(circle at 0% 100%, rgba(229, 9, 20, 0.2), transparent 30%);
+    background: radial-gradient(ellipse at center, #ffffff 0%, #f4f4f5 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,52 +45,99 @@ body.login-page {
 }
 
 .login-container {
-    padding: 40px;
-    background: rgba(26, 26, 46, 0.5);
-    border: 1px solid var(--neon-blue);
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(0, 191, 255, 0.3);
-    backdrop-filter: blur(10px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
+/* --- Logo Animado --- */
 .login-logo {
-    max-width: 280px;
-    margin-bottom: 30px;
-    transition: filter 0.4s ease-in-out;
+    max-width: 300px;
+    margin-bottom: 35px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease; /* Transição apenas para o hover */
+    opacity: 0;
+    
+    /* ANIMAÇÕES COMBINADAS: */
+    /* 1. Surge na tela (fadeInUp) | 2. Começa a flutuar (float) */
+    animation: 
+        fadeInUp 0.8s ease-out 0.2s forwards,
+        float 5s ease-in-out 1.2s infinite;
 }
+
 .login-logo:hover {
-    filter: drop-shadow(0 0 15px var(--primary-red));
+    /* Pausa a animação de flutuar e aplica o zoom quando o mouse está sobre o logo */
+    animation-play-state: paused;
+    transform: scale(1.05);
 }
-
-/* --- ESTILOS DE TEXTO --- */
+/* --- Novos Estilos para os Textos (Maiores) --- */
 .login-welcome {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-light);
-    animation: pulse-glow 4s ease-in-out infinite;
-    margin-bottom: 20px;
+    font-size: 2.2rem; /* Aumentado de 1.8rem */
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 20px; /* Aumentado de 15px */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
 }
 
-.login-summary, .login-prompt {
-    font-size: 1.1rem;
-    color: #ccc;
-    max-width: 500px;
+.login-summary {
+    color: #555;
+    font-size: 1.2rem; /* Aumentado de 1.1rem */
+    max-width: 550px; /* Aumentado de 450px para comportar o texto maior */
     line-height: 1.6;
-    margin-bottom: 30px;
+    margin-bottom: 35px; /* Aumentado de 30px */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.6s forwards;
 }
 
 .login-prompt {
-    font-size: 1rem;
-    color: #aaa;
+    color: #777;
+    font-size: 1.1rem; /* Aumentado de 1rem */
+    margin-bottom: 40px; /* Aumentado de 35px */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.8s forwards;
 }
 
-/* --- BOTÃO DO GOOGLE --- */
-#google-btn-container {
-    background: transparent !important;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
-    transition: box-shadow 0.3s ease;
+/* --- NOVA ANIMAÇÃO DE PULSO --- */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(166, 44, 43, 0.5); /* --primary-red com 50% de opacidade */
+    }
+    70% {
+        box-shadow: 0 0 0 25px rgba(166, 44, 43, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(166, 44, 43, 0);
+    }
 }
+
+
+/* --- BOTÃO DO GOOGLE COM MÁXIMO DESTAQUE --- */
+#google-btn-container {
+    background-color: var(--surface-color); /* Fundo branco para criar um painel */
+    padding: 20px 25px; /* Espaçamento interno para aumentar a área */
+    border-radius: 12px; /* Bordas arredondadas */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Sombra para destacar */
+    display: inline-block; /* Para que o padding e outras props funcionem bem */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    opacity: 0;
+    /* Animação de entrada, continua sendo o último a aparecer */
+    animation: fadeInUp 0.8s ease-out 1.0s forwards; 
+}
+
 #google-btn-container:hover {
-    box-shadow: 0 0 25px var(--neon-blue);
+    transform: translateY(-5px); /* Efeito de elevação no hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Aplica a animação de pulso no painel do botão */
+#google-btn-container.pulse-animation {
+    animation: fadeInUp 0.8s ease-out 1.0s forwards, pulse 2.5s infinite 1.8s;
+}
+
+/* Remove o scale do botão interno, já que o container agora é o foco */
+#google-btn-container > div {
+    transition: transform 0.3s ease;
 }

@@ -1,12 +1,14 @@
-/* --- FONTES E CONFIGURAÇÕES GLOBAIS - TEMA NEON --- */
+/* --- FONTES E CONFIGURAÇÕES GLOBAIS --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 :root {
-    --primary-red: #e50914; /* Vermelho mais vivo para o neon */
-    --neon-blue: #00bfff;   /* Azul neon para destaque */
-    --bg-dark: #0d0221;    /* Fundo azul-escuro/roxo */
-    --surface-dark: #1a1a2e; /* Superfície para cards */
-    --text-light: #f0f8ff; /* Texto branco-azulado */
+    /* Nova paleta de cores baseada no logo D&D */
+    --primary-red: #a62c2b; /* Vermelho escuro do logo */
+    --bg-color: #f4f4f5;      /* Fundo cinza bem claro */
+    --surface-color: #ffffff; /* Branco para cards e header */
+    --text-dark: #212529;   /* Cinza escuro para texto */
+    --text-light: #ffffff;  /* Texto claro (branco) */
+    --border-color: #e5e7eb; /* Cor suave para bordas */
 }
 
 * {
@@ -15,18 +17,18 @@
     box-sizing: border-box;
 }
 
-/* --- LAYOUT PRINCIPAL E FUNDO --- */
+/* --- CORREÇÃO DO RODAPÉ E LAYOUT PRINCIPAL --- */
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh; /* Garante que o body ocupe no mínimo a altura total da tela */
     font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-light);
+    background-color: var(--bg-color);
+    color: var(--text-dark);
 }
 
 main {
-    flex-grow: 1;
+    flex-grow: 1; /* Faz o conteúdo principal crescer e empurrar o rodapé para baixo */
 }
 
 .container {
@@ -37,13 +39,13 @@ main {
 
 /* --- CABEÇALHO --- */
 .main-header {
-    background-color: rgba(26, 26, 46, 0.5); /* Fundo semi-transparente */
+    background-color: var(--surface-color);
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid var(--neon-blue);
-    backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .main-header .container {
@@ -54,134 +56,220 @@ main {
 
 .header-logo {
     height: 50px;
-    transition: filter 0.3s ease;
-}
-.header-logo:hover {
-    filter: drop-shadow(0 0 10px var(--primary-red));
+    border-radius: 25px;
 }
 
-/* --- PERFIL DO USUÁRIO --- */
-#user-profile, #logout-btn {
-    text-shadow: 0 0 5px var(--primary-red);
+/* --- PERFIL DO USUÁRIO NO HEADER --- */
+#user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
+
 #user-pic {
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 10px var(--neon-blue);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-red);
+    object-fit: cover;
 }
 
-/* --- SEÇÃO DE CARDS --- */
+#user-name {
+    font-weight: 600;
+}
+
+#logout-btn {
+    background-color: var(--primary-red);
+    color: var(--text-light);
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+#logout-btn:hover {
+    background-color: #c40812; /* Vermelho um pouco mais vivo no hover */
+}
+
+/* --- CONTEÚDO PRINCIPAL (CARDS) --- */
 .cards-section {
     padding: 60px 0;
+    text-align: center;
 }
 
 .cards-section h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
     font-weight: 700;
-    text-align: center;
-    margin-bottom: 50px;
-    color: var(--text-light);
-    /* Efeito de texto neon */
-    text-shadow: 0 0 5px var(--text-light), 
-                 0 0 10px var(--neon-blue), 
-                 0 0 20px var(--neon-blue);
 }
 
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
 }
 
 .card {
-    background: var(--surface-dark);
+    background-color: var(--surface-color);
+    border-radius: 8px;
     padding: 30px;
-    border: 1px solid var(--primary-red);
-    border-radius: 12px;
+    text-align: left;
+    border-top: 4px solid var(--primary-red);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* --- NOVAS LINHAS PARA ALINHAR O BOTÃO --- */
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* Efeito de brilho neon */
-    box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px var(--primary-red);
-}
-
-.card-image {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 25px;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-.card:hover .card-image {
-    opacity: 1;
-}
-
-.card h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 15px;
-    color: var(--primary-red);
-    text-shadow: 0 0 8px rgba(229, 9, 20, 0.7);
-}
-
-.card p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #ccc;
-    margin-bottom: 25px;
-}
-
-.btn-access, #logout-btn {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
+.btn-access {
     display: block;
-    margin-top: auto;
+    margin-top: auto; /* ESTA É A MUDANÇA MÁGICA */
     padding: 12px 25px;
     background-color: var(--primary-red);
     color: var(--text-light);
     text-decoration: none;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
     text-align: center;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.btn-access:hover, #logout-btn:hover {
-    background-color: #ff1a26; /* Vermelho mais brilhante no hover */
-    box-shadow: 0 0 20px rgba(229, 9, 20, 0.8);
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: var(--text-dark);
+    font-weight: 600;
+    text-align: center; /* <-- Adicione esta linha */
+    margin-bottom: 15px;  /* Bônus: Adiciona um espaço abaixo do título */
+}
+
+.card p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 25px; /* <-- Adicione esta linha para criar o espaço */
+}
+
+.btn-access:hover {
+    background-color: #c40812;
 }
 
 /* --- RODAPÉ --- */
 .main-footer {
-    background-color: transparent;
-    color: #888;
+    background-color: #212529; /* Rodapé escuro para contraste */
+    color: #adb5bd;
     text-align: center;
     padding: 25px 0;
-    margin-top: auto;
-    border-top: 1px solid var(--neon-blue);
+    margin-top: auto; /* Garante que ele fique no fim, junto com o flexbox do body */
 }
 
-/* --- MODAL NEON --- */
+
+/* --- ESTILOS PARA IMAGEM DE CAPA DO CARD --- */
+
+.card-image {
+    width: 100%;
+    height: 160px; /* Altura fixa para todas as imagens */
+    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+    border-radius: 6px;
+    margin-bottom: 25px; /* Espaço entre a imagem e o título */
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+}
+
+/* --- ESTILOS PARA O MODAL DE FORMULÁRIO --- */
+
 .modal-overlay {
-    background-color: rgba(13, 2, 33, 0.8);
-    backdrop-filter: blur(5px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); /* Fundo preto semi-transparente */
+    display: none; /* Começa escondido */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
 }
 
 .modal-content {
-    border: 1px solid var(--neon-blue);
-    box-shadow: 0 0 30px var(--neon-blue);
+    position: relative;
+    background-color: #fff;
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    padding: 0;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
 }
 
 .close-modal-btn {
-    background-color: var(--neon-blue);
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-red);
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 2010;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+#modal-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px; /* Para garantir que o conteúdo não vaze */
+}
+
+/* Efeito de carregamento (opcional, mas recomendado) */
+.modal-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid var(--primary-red);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+#modal-iframe:not([src=""]) + .modal-loader {
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
