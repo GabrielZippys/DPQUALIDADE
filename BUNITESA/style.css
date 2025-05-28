@@ -97,13 +97,14 @@ main {
 /* --- CONTEÚDO PRINCIPAL (CARDS) --- */
 .cards-section {
     padding: 60px 0;
-    text-align: center;
+    /* text-align: center; Removido para que o search-container possa controlar seu próprio alinhamento */
 }
 
 .cards-section h2 {
     font-size: 2.2rem;
     margin-bottom: 40px;
     font-weight: 700;
+    text-align: center; /* Adicionado aqui para centralizar o título */
 }
 
 .cards-container {
@@ -120,15 +121,44 @@ main {
     border-top: 4px solid var(--primary-red);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    /* --- NOVAS LINHAS PARA ALINHAR O BOTÃO --- */
     display: flex;
     flex-direction: column;
 }
 
+.card-image {
+    width: 100%;
+    height: 160px; 
+    object-fit: cover; 
+    border-radius: 6px; /* Mantive o border-radius original dos cards para consistência */
+    margin-bottom: 25px; 
+    border: 1px solid var(--border-color);
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: var(--text-dark);
+    font-weight: 600;
+    text-align: center; 
+    margin-bottom: 15px;  
+}
+
+.card p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 25px; 
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+}
+
 .btn-access {
     display: block;
-    margin-top: auto; /* ESTA É A MUDANÇA MÁGICA */
+    margin-top: auto; 
     padding: 12px 25px;
     background-color: var(--primary-red);
     color: var(--text-light);
@@ -139,64 +169,28 @@ main {
     text-align: center;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
-}
-
-.card h3 {
-    margin-top: 0;
-    font-size: 1.4em;
-    color: var(--text-dark);
-    font-weight: 600;
-    text-align: center; /* <-- Adicione esta linha */
-    margin-bottom: 15px;  /* Bônus: Adiciona um espaço abaixo do título */
-}
-
-.card p {
-    font-size: 1em;
-    line-height: 1.6;
-    color: #555;
-    margin-top: 10px;
-    margin-bottom: 25px; /* <-- Adicione esta linha para criar o espaço */
-}
-
 .btn-access:hover {
     background-color: #c40812;
 }
 
 /* --- RODAPÉ --- */
 .main-footer {
-    background-color: #212529; /* Rodapé escuro para contraste */
+    background-color: #212529; 
     color: #adb5bd;
     text-align: center;
     padding: 25px 0;
-    margin-top: auto; /* Garante que ele fique no fim, junto com o flexbox do body */
-}
-
-
-/* --- ESTILOS PARA IMAGEM DE CAPA DO CARD --- */
-
-.card-image {
-    width: 100%;
-    height: 160px; /* Altura fixa para todas as imagens */
-    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
-    border-radius: 6px;
-    margin-bottom: 25px; /* Espaço entre a imagem e o título */
-    border: 1px solid var(--border-color);
-    border-radius: 50px;
+    margin-top: auto; 
 }
 
 /* --- ESTILOS PARA O MODAL DE FORMULÁRIO --- */
-
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Fundo preto semi-transparente */
-    display: none; /* Começa escondido */
+    background-color: rgba(0, 0, 0, 0.75); 
+    display: none; 
     justify-content: center;
     align-items: center;
     z-index: 2000;
@@ -248,10 +242,9 @@ main {
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 8px; /* Para garantir que o conteúdo não vaze */
+    border-radius: 8px; 
 }
 
-/* Efeito de carregamento (opcional, mas recomendado) */
 .modal-loader {
     position: absolute;
     top: 50%;
@@ -265,11 +258,39 @@ main {
     animation: spin 1s linear infinite;
 }
 
-#modal-iframe:not([src=""]) + .modal-loader {
-    display: none;
-}
+/* Removi a regra antiga que escondia o loader, pois o JS agora cuida disso */
 
 @keyframes spin {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* --- NOVOS ESTILOS PARA A BARRA DE BUSCA --- */
+.search-container {
+    margin-bottom: 30px; 
+    text-align: center; 
+}
+
+#search-bar {
+    width: 60%;
+    max-width: 500px; /* Adicionado para não ficar muito largo em telas grandes */
+    padding: 12px 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: var(--text-dark);
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#search-bar::placeholder {
+    color: #888; /* Um pouco mais escuro para melhor contraste no fundo branco */
+}
+
+#search-bar:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(166, 44, 43, 0.25); /* Efeito de anel de foco */
 }

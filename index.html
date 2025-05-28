@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Central de Formulários</title>
-    <link rel="stylesheet" href="/BUNITESA/style.css">
+    <link rel="stylesheet" href="/BUNITESA/style.css"> 
 </head>
 <body>
     <script src="auth.js"></script>
@@ -29,7 +29,11 @@
         <section class="cards-section">
             <h2>Formulários Disponíveis</h2>
             
-               <div class="cards-container">
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Buscar formulário pelo nome...">
+            </div>
+            <p id="no-results-message" style="display: none; text-align: center; margin-top: 20px; font-size: 1rem; color: var(--text-dark);">Nenhum formulário encontrado.</p>
+            <div class="cards-container">
                 <div class="card">
                     <img src="/img/MONDIARIO.jpg" alt="Pessoa inspecionando a limpeza de uma área industrial" class="card-image">
                     <h3>Monitoramento Diário</h3>
@@ -67,6 +71,14 @@
         </div>
     </footer>
     
+    <div id="form-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn" title="Fechar">&times;</button>
+            <iframe id="modal-iframe" src="" frameborder="0" allowfullscreen></iframe>
+            <div class="modal-loader"></div>
+        </div>
+    </div>
+
     <script>
         // SCRIPT PARA PREENCHER OS DADOS DO USUÁRIO NO HEADER
         document.addEventListener('DOMContentLoaded', () => {
@@ -74,74 +86,84 @@
             if (storedUserInfo) {
                 const userInfo = JSON.parse(storedUserInfo);
                 document.getElementById('user-pic').src = userInfo.picture;
-                document.getElementById('user-name').textContent = userInfo.given_name; // Pega só o primeiro nome
+                document.getElementById('user-name').textContent = userInfo.given_name; 
             }
-
-            // Atribui a função de logout ao botão
             document.getElementById('logout-btn').addEventListener('click', logout);
 
-// --- CÓDIGO PARA CONTROLAR O MODAL (VERSÃO CORRIGIDA) ---
+            // --- CÓDIGO PARA CONTROLAR O MODAL (VERSÃO CORRIGIDA) ---
+            const accessButtons = document.querySelectorAll('.btn-access');
+            const modal = document.getElementById('form-modal');
+            const modalIframe = document.getElementById('modal-iframe');
+            const closeModalButton = document.querySelector('.close-modal-btn');
+            const loader = document.querySelector('.modal-loader'); 
 
-        // 1. Pegar todos os elementos que vamos usar
-        const accessButtons = document.querySelectorAll('.btn-access');
-        const modal = document.getElementById('form-modal');
-        const modalIframe = document.getElementById('modal-iframe');
-        const closeModalButton = document.querySelector('.close-modal-btn');
-        const loader = document.querySelector('.modal-loader'); // Pega o loader
+            const openModal = (url) => {
+                loader.style.display = 'block'; 
+                modalIframe.setAttribute('src', url);
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
 
-        // Função para abrir o modal
-        const openModal = (url) => {
-            loader.style.display = 'block'; // Garante que o loader apareça
-            modalIframe.setAttribute('src', url);
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        };
+            const closeModal = () => {
+                modal.classList.remove('active');
+                modalIframe.setAttribute('src', '');
+                document.body.style.overflow = 'auto';
+            };
+            
+            modalIframe.addEventListener('load', () => {
+                loader.style.display = 'none'; 
+            });
 
-        // Função para fechar o modal
-        const closeModal = () => {
-            modal.classList.remove('active');
-            modalIframe.setAttribute('src', '');
-            document.body.style.overflow = 'auto';
-        };
-        
-        // NOVO: Ouvinte que espera o iframe carregar completamente
-        modalIframe.addEventListener('load', () => {
-            loader.style.display = 'none'; // Esconde o loader QUANDO o conteúdo carregar
-        });
+            accessButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const formUrl = button.href;
+                    openModal(formUrl);
+                });
+            });
 
-        // 2. Adicionar o "ouvinte" de clique para cada botão "Acessar"
-        accessButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                event.preventDefault();
-                const formUrl = button.href;
-                openModal(formUrl);
+            closeModalButton.addEventListener('click', closeModal);
+
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+            // --- CÓDIGO PARA A BARRA DE BUSCA DE FORMULÁRIOS ---
+            const searchBar = document.getElementById('search-bar');
+            const cards = document.querySelectorAll('.card'); 
+            const noResultsMessage = document.getElementById('no-results-message');
+
+            searchBar.addEventListener('input', (event) => {
+                const searchTerm = event.target.value.toLowerCase().trim();
+                let visibleCardsCount = 0;
+
+                cards.forEach(card => {
+                    const cardTitle = card.querySelector('h3').textContent.toLowerCase();
+                    const cardDescription = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (cardTitle.includes(searchTerm) || cardDescription.includes(searchTerm)) {
+                        card.style.display = 'flex'; 
+                        visibleCardsCount++;
+                    } else {
+                        card.style.display = 'none'; 
+                    }
+                });
+
+                if (visibleCardsCount === 0 && searchTerm !== '') {
+                    noResultsMessage.style.display = 'block';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                }
             });
         });
-
-        // 3. Adicionar os "ouvintes" para fechar o modal
-        closeModalButton.addEventListener('click', closeModal);
-
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeModal();
-            }
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && modal.classList.contains('active')) {
-                closeModal();
-            }
-        });
-    });
     </script>
-
-<div id="form-modal" class="modal-overlay">
-    <div class="modal-content">
-        <button class="close-modal-btn" title="Fechar">&times;</button>
-        <iframe id="modal-iframe" src="" frameborder="0" allowfullscreen></iframe>
-        <div class="modal-loader"></div>
-    </div>
-</div>
-
 </body>
 </html>
