@@ -87,7 +87,7 @@ main {
     cursor: pointer;
     border-radius: 6px;
     font-weight: 600;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Adicionado transform */
 }
 
 #logout-btn:hover {
@@ -97,14 +97,13 @@ main {
 /* --- CONTEÚDO PRINCIPAL (CARDS) --- */
 .cards-section {
     padding: 60px 0;
-    /* text-align: center; Removido para que o search-container possa controlar seu próprio alinhamento */
 }
 
 .cards-section h2 {
     font-size: 2.2rem;
     margin-bottom: 40px;
     font-weight: 700;
-    text-align: center; /* Adicionado aqui para centralizar o título */
+    text-align: center;
 }
 
 .cards-container {
@@ -129,7 +128,7 @@ main {
     width: 100%;
     height: 160px; 
     object-fit: cover; 
-    border-radius: 6px; /* Mantive o border-radius original dos cards para consistência */
+    border-radius: 6px;
     margin-bottom: 25px; 
     border: 1px solid var(--border-color);
 }
@@ -165,7 +164,7 @@ main {
     text-decoration: none;
     font-weight: 600;
     border-radius: 6px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Adicionado transform */
     text-align: center;
 }
 
@@ -195,12 +194,13 @@ main {
     align-items: center;
     z-index: 2000;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    /* Transição original mantida, ajustes de melhoria na seção abaixo */
+    /* transition: opacity 0.3s ease; */
 }
 
 .modal-overlay.active {
     display: flex;
-    opacity: 1;
+    /* opacity: 1; */ /* Controlado pela nova seção de melhorias */
 }
 
 .modal-content {
@@ -212,12 +212,12 @@ main {
     border-radius: 8px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     padding: 0;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
+    /* transform: scale(0.9); */ /* Controlado pela nova seção de melhorias */
+    /* transition: transform 0.3s ease; */ /* Controlado pela nova seção de melhorias */
 }
 
 .modal-overlay.active .modal-content {
-    transform: scale(1);
+    /* transform: scale(1); */ /* Controlado pela nova seção de melhorias */
 }
 
 .close-modal-btn {
@@ -258,14 +258,12 @@ main {
     animation: spin 1s linear infinite;
 }
 
-/* Removi a regra antiga que escondia o loader, pois o JS agora cuida disso */
-
 @keyframes spin {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* --- NOVOS ESTILOS PARA A BARRA DE BUSCA --- */
+/* --- ESTILOS PARA A BARRA DE BUSCA --- */
 .search-container {
     margin-bottom: 30px; 
     text-align: center; 
@@ -273,7 +271,7 @@ main {
 
 #search-bar {
     width: 60%;
-    max-width: 500px; /* Adicionado para não ficar muito largo em telas grandes */
+    max-width: 500px; 
     padding: 12px 20px;
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
@@ -286,11 +284,165 @@ main {
 }
 
 #search-bar::placeholder {
-    color: #888; /* Um pouco mais escuro para melhor contraste no fundo branco */
+    color: #888; 
 }
 
 #search-bar:focus {
     outline: none;
     border-color: var(--primary-red);
-    box-shadow: 0 0 0 3px rgba(166, 44, 43, 0.25); /* Efeito de anel de foco */
+    /* box-shadow: 0 0 0 3px rgba(166, 44, 43, 0.25); */ /* Ajustado na seção de melhorias */
 }
+
+
+/* --- === MELHORIAS "500%" === --- */
+
+/* Scroll suave para toda a página */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilo de foco geral aprimorado para acessibilidade e feedback */
+*:focus-visible {
+    outline: 2px solid var(--primary-red); /* Borda de foco mais sutil */
+    outline-offset: 2px;
+    box-shadow: 0 0 8px rgba(166, 44, 43, 0.5); /* Brilho suave no foco */
+}
+
+/* Melhorias no Cabeçalho */
+.main-header {
+    transition: box-shadow 0.3s ease; 
+}
+/* (Opcional: adicionar classe via JS para mudar sombra ao rolar a página) */
+/* .main-header.scrolled {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+} */
+
+.header-logo {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+.header-logo:hover {
+    transform: scale(1.08); /* Aumento sutil no hover */
+    filter: drop-shadow(0 2px 5px rgba(166, 44, 43, 0.3)); /* Sombra sutil do logo */
+}
+
+#logout-btn:active, .btn-access:active { /* Efeito de clique mais tátil */
+    transform: scale(0.96);
+}
+
+/* Melhoria no Título da Seção */
+.cards-section h2 {
+    position: relative;
+    display: inline-block; /* Para o pseudo-elemento se ajustar ao texto */
+    padding-bottom: 10px; /* Espaço para a linha animada */
+}
+.cards-section h2::after { /* Linha decorativa animada abaixo do título */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-red);
+    transition: width 0.4s ease-in-out;
+}
+.cards-section:hover h2::after { /* Anima ao passar mouse na seção */
+    width: 80px;
+}
+
+/* Melhoria na Barra de Busca */
+#search-bar:focus {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 8px rgba(166, 44, 43, 0.4), 0 0 0 2px rgba(166, 44, 43, 0.2); /* Brilho mais suave e anel */
+}
+
+/* Melhorias nos Cards */
+@keyframes cardEntryAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card {
+    opacity: 0; /* Começa invisível para a animação */
+    animation: cardEntryAnimation 0.5s ease-out forwards;
+    /* Atrasos para animação escalonada. Para mais cards, adicione mais :nth-child() ou use JS */
+}
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02); /* Efeito de "levantar" mais pronunciado */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card-image {
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.35s;
+    opacity: 0.9; /* Levemente transparente por padrão */
+}
+.card:hover .card-image {
+    transform: scale(1.05); /* Zoom suave na imagem */
+    opacity: 1;
+}
+
+/* Melhoria nos Botões "Acessar" */
+.btn-access {
+    position: relative; /* Necessário para o pseudo-elemento */
+    overflow: hidden;  /* Garante que o pseudo-elemento não vaze */
+    z-index: 1; /* Para que o texto fique acima do pseudo-elemento */
+}
+.btn-access::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: -1;
+}
+.btn-access:hover::before {
+    left: 100%; /* Efeito de brilho que passa */
+}
+
+/* Melhoria nas Animações do Modal */
+.modal-overlay {
+    transition: opacity 0.35s ease, visibility 0.35s;
+    visibility: hidden;
+}
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease-out; /* Efeito de "elástico" */
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+}
+.modal-overlay.active .modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.close-modal-btn {
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.close-modal-btn:hover {
+    transform: rotate(90deg) scale(1.15);
+    background-color: #c40812;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+/* --- FIM DAS MELHORIAS --- */
