@@ -97,12 +97,10 @@ main {
 /* --- CONTEÚDO PRINCIPAL (CARDS) --- */
 .cards-section {
     padding: 60px 0;
+    text-align: center; 
 }
 
 .cards-section h2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 2.2rem;
     margin-bottom: 40px;
     font-weight: 700;
@@ -333,10 +331,25 @@ html {
 }
 
 /* Melhoria no Título da Seção */
+
+.cards-section:hover h2::after { /* Anima ao passar mouse na seção */
+    width: 80px;
+}
+
+/* Melhoria na Barra de Busca */
+#search-bar:focus {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 8px rgba(166, 44, 43, 0.4), 0 0 0 2px rgba(166, 44, 43, 0.2); /* Brilho mais suave e anel */
+}
+
 .cards-section h2 {
     position: relative;
-    display: inline-block; /* Para o pseudo-elemento se ajustar ao texto */
+    /* display: inline-block; Removido para permitir centralização mais fácil */
     padding-bottom: 10px; /* Espaço para a linha animada */
+    text-align: center; /* Garante que o texto dentro do h2 esteja centralizado */
+    font-size: 2.2rem;  /* Mantido do seu código original */
+    margin-bottom: 40px; /* Mantido do seu código original */
+    font-weight: 700; /* Mantido do seu código original */
 }
 .cards-section h2::after { /* Linha decorativa animada abaixo do título */
     content: '';
@@ -348,15 +361,6 @@ html {
     height: 3px;
     background-color: var(--primary-red);
     transition: width 0.4s ease-in-out;
-}
-.cards-section:hover h2::after { /* Anima ao passar mouse na seção */
-    width: 80px;
-}
-
-/* Melhoria na Barra de Busca */
-#search-bar:focus {
-    border-color: var(--primary-red);
-    box-shadow: 0 0 8px rgba(166, 44, 43, 0.4), 0 0 0 2px rgba(166, 44, 43, 0.2); /* Brilho mais suave e anel */
 }
 
 /* Melhorias nos Cards */
