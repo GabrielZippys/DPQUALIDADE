@@ -423,23 +423,84 @@ html {
 }
 
 /* Melhoria nas Animações do Modal */
+
+/* --- === MELHORIAS "500%" / ESTILOS DO MODAL CORRIGIDOS === --- */
+
 .modal-overlay {
-    transition: opacity 0.35s ease, visibility 0.35s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); 
+    
+    /* ESSENCIAL: Controla a centralização e permite transições */
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    
+    z-index: 2000;
+    
+    /* Estado inicial: invisível e não interativo */
+    opacity: 0;
     visibility: hidden;
+    
+    /* Transições suaves para opacidade e visibilidade */
+    transition: opacity 0.35s ease, visibility 0.35s ease;
 }
+
 .modal-overlay.active {
+    /* Estado ativo: visível e interativo */
     opacity: 1;
     visibility: visible;
 }
 
 .modal-content {
-    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease-out; /* Efeito de "elástico" */
+    position: relative;
+    background-color: var(--surface-color); /* Usando sua variável de cor */
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    padding: 0; /* O iframe ocupará todo o espaço */
+    
+    /* Estado inicial para animação de entrada */
     opacity: 0;
-    transform: scale(0.8) translateY(30px);
+    transform: scale(0.85) translateY(20px); /* Começa um pouco menor e abaixo */
+    
+    /* Transição com efeito "elástico" para transform e suave para opacidade */
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease-out;
 }
+
 .modal-overlay.active .modal-content {
-    transform: scale(1) translateY(0);
+    /* Estado ativo: tamanho normal, posição normal e opaco */
     opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-red);
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 36px; /* Ajuste para centralizar o X */
+    text-align: center;
+    cursor: pointer;
+    z-index: 2010;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.close-modal-btn:hover {
+    transform: rotate(90deg) scale(1.15);
+    background-color: #c40812;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 
 .close-modal-btn {
